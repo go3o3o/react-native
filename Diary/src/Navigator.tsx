@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import ListScreen from './screens/ListScreen';
 import BookmarkScreen from './screens/BookmarkScreen';
 import EditScreen from './screens/EditScreen';
+import ViewScreen from './screens/ViewScreen';
 
 type TabBarIconProps = {
   color: string;
@@ -76,6 +77,7 @@ const Navigator = () => {
         }}>
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="Edit" component={EditScreen} />
+        <Stack.Screen name="View" component={ViewScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Platform, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useNavigation} from '@react-navigation/native';
 
 type ArticleItemProps = {
   article: {
@@ -10,20 +11,25 @@ type ArticleItemProps = {
     date: string;
   };
 };
+
 const ArticleItem = (props: ArticleItemProps) => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity activeOpacity={0.8}>
-      <View style={styles.container}>
-        <View style={styles.icon}>
-          <Icon name="list" size={14} color="#9E9E9E" />
-        </View>
-        <View style={styles.info}>
-          <Text style={styles.title}>{props.article.title}</Text>
-          <Text style={styles.content} numberOfLines={2}>
-            {props.article.content}
-          </Text>
-          <Text style={styles.date}>{props.article.date}</Text>
-        </View>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate('View' as never);
+      }}>
+      <View style={styles.icon}>
+        <Icon name="list" size={14} color="#9E9E9E" />
+      </View>
+      <View style={styles.info}>
+        <Text style={styles.title}>{props.article.title}</Text>
+        <Text style={styles.content} numberOfLines={2}>
+          {props.article.content}
+        </Text>
+        <Text style={styles.date}>{props.article.date}</Text>
       </View>
     </TouchableOpacity>
   );
