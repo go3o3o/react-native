@@ -1,26 +1,23 @@
 import React from 'react';
-import {Text, SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, FlatList, StyleSheet} from 'react-native';
+import {withContext} from '../libs/Context';
 import Header from '../components/Header';
 import ArticleItem from '../components/ArticleItem';
+import {IArticle} from '../interfaces/Article.interface';
 
-const ListScreen = () => {
+type ListScreenProps = {articles: IArticle[]};
+
+const ListScreen = (props: ListScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="목록" />
-      <ArticleItem
-        article={{
-          id: 1,
-          title: '테스트',
-          content: 'hi',
-          date: '2024년 7월 31일',
+      <Header title="나의 글" />
+      <FlatList
+        data={props.articles}
+        renderItem={({item}) => {
+          return <ArticleItem article={item} />;
         }}
-      />
-      <ArticleItem
-        article={{
-          id: 2,
-          title: '테스트2',
-          content: 'bye',
-          date: '2024년 7월 31일',
+        keyExtractor={item => {
+          return `${item.id}`;
         }}
       />
     </SafeAreaView>
@@ -29,4 +26,4 @@ const ListScreen = () => {
 
 const styles = StyleSheet.create({container: {flex: 1}});
 
-export default ListScreen;
+export default withContext(ListScreen);
