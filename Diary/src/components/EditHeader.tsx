@@ -3,7 +3,9 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const EditHeader = () => {
+type EditHeaderProps = {done: any};
+
+const EditHeader = (props: EditHeaderProps) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -17,6 +19,10 @@ const EditHeader = () => {
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.8}
+        onPress={() => {
+          props.done();
+          navigation.goBack();
+        }}
         hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}>
         <Text style={styles.done}>완료</Text>
       </TouchableOpacity>

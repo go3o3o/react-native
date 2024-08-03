@@ -1,17 +1,35 @@
 import React from 'react';
 import {TextInput, View, SafeAreaView, StyleSheet} from 'react-native';
+import {withContext} from '../libs/Context';
 import EditHeader from '../components/EditHeader';
 
-const EditScreen = () => {
+type EditScreenProps = {create: any};
+
+const EditScreen = (props: EditScreenProps) => {
+  let title = '';
+  let content = '';
   return (
     <SafeAreaView style={styles.container}>
-      <EditHeader />
+      <EditHeader
+        done={() => {
+          props.create(title, content);
+        }}
+      />
       <View style={styles.body}>
-        <TextInput placeholder="제목" style={styles.title} />
+        <TextInput
+          placeholder="제목"
+          onChangeText={(text: string) => {
+            title = text;
+          }}
+          style={styles.title}
+        />
         <View style={styles.divider} />
         <TextInput
           placeholder="이곳을 눌러 작성을 시작하세요."
           multiline={true}
+          onChangeText={(text: string) => {
+            content = text;
+          }}
           style={styles.content}
         />
       </View>
@@ -48,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditScreen;
+export default withContext(EditScreen);

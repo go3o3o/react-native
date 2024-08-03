@@ -3,7 +3,9 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const ViewHeader = () => {
+type ViewHeaderProps = {title: string | undefined};
+
+const ViewHeader = (props: ViewHeaderProps) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -15,7 +17,7 @@ const ViewHeader = () => {
         activeOpacity={0.8}>
         <Icon name="chevron-back-outline" size={28} color="#DA5746" />
       </TouchableOpacity>
-      <Text style={styles.title}>글 제목</Text>
+      <Text style={styles.title}>{props.title}</Text>
       <TouchableOpacity
         activeOpacity={0.8}
         hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}>

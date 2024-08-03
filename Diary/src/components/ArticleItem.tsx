@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Platform, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, NavigationProp} from '@react-navigation/native';
 
 type ArticleItemProps = {
   article: {
@@ -13,13 +13,13 @@ type ArticleItemProps = {
 };
 
 const ArticleItem = (props: ArticleItemProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<any>>();
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       style={styles.container}
       onPress={() => {
-        navigation.navigate('View' as never);
+        navigation.navigate('View', {id: props.article.id});
       }}>
       <View style={styles.icon}>
         <Icon name="list" size={14} color="#9E9E9E" />

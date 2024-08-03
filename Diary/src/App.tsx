@@ -1,6 +1,7 @@
 import React from 'react';
 import {ContextProvider} from './libs/Context';
 import Navigator from './Navigator';
+import {IArticle} from './interfaces/Article.interface';
 
 export default class App extends React.Component {
   state = {
@@ -23,7 +24,24 @@ export default class App extends React.Component {
 
   render(): React.ReactNode {
     return (
-      <ContextProvider articles={this.state.articles}>
+      <ContextProvider
+        articles={this.state.articles}
+        create={(title: string, content: string) => {
+          const now = new Date();
+          const article = {
+            id: this.state.articles.length + 1,
+            title: title,
+            content: content,
+            bookmarked: false,
+            date: `${now.getFullYear()}년 ${
+              now.getMonth() + 1
+            }월 ${now.getDate()}일`,
+          };
+          console.log(article);
+          this.setState({
+            articles: [article].concat(this.state.articles as IArticle[]),
+          });
+        }}>
         <Navigator />
       </ContextProvider>
     );
