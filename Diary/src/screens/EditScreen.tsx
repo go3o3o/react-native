@@ -2,17 +2,30 @@ import React from 'react';
 import {TextInput, View, SafeAreaView, StyleSheet} from 'react-native';
 import {withContext} from '../libs/Context';
 import EditHeader from '../components/EditHeader';
+import {IArticle} from '../interfaces/Article.interface';
 
-type EditScreenProps = {create: any};
+type EditScreenProps = {
+  create: any;
+  update: any;
+  articles: IArticle[];
+  route: any;
+};
 
 const EditScreen = (props: EditScreenProps) => {
-  let title = '';
-  let content = '';
+  const id = props.route.params?.id;
+  const article = props.articles.find(a => a.id === id);
+
+  let title = article ? article.title : '';
+  let content = article ? article.content : '';
   return (
     <SafeAreaView style={styles.container}>
       <EditHeader
         done={() => {
-          props.create(title, content);
+          if (id) {
+            props.update(id, title, content);
+          } else {
+            props.create(title, content);
+          }
         }}
       />
       <View style={styles.body}>
@@ -21,8 +34,9 @@ const EditScreen = (props: EditScreenProps) => {
           onChangeText={(text: string) => {
             title = text;
           }}
-          style={styles.title}
-        />
+          style={styles.title}>
+          {title}
+        </TextInput>
         <View style={styles.divider} />
         <TextInput
           placeholder="이곳을 눌러 작성을 시작하세요."
@@ -30,8 +44,9 @@ const EditScreen = (props: EditScreenProps) => {
           onChangeText={(text: string) => {
             content = text;
           }}
-          style={styles.content}
-        />
+          style={styles.content}>
+          {content}
+        </TextInput>
       </View>
     </SafeAreaView>
   );

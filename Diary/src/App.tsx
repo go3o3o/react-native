@@ -28,7 +28,7 @@ export default class App extends React.Component {
         articles={this.state.articles}
         create={(title: string, content: string) => {
           const now = new Date();
-          const article = {
+          const newArticle = {
             id: this.state.articles.length + 1,
             title: title,
             content: content,
@@ -37,10 +37,16 @@ export default class App extends React.Component {
               now.getMonth() + 1
             }월 ${now.getDate()}일`,
           };
-          console.log(article);
           this.setState({
-            articles: [article].concat(this.state.articles as IArticle[]),
+            articles: [newArticle].concat(this.state.articles as IArticle[]),
           });
+        }}
+        update={(id: number, title: string, content: string) => {
+          const newArticles = [...this.state.articles];
+          const index = newArticles.findIndex(a => a.id === id);
+          newArticles[index].title = title;
+          newArticles[index].content = content;
+          this.setState({articles: newArticles});
         }}>
         <Navigator />
       </ContextProvider>
