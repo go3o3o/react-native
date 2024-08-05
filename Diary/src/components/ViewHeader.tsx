@@ -3,7 +3,11 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-type ViewHeaderProps = {title: string | undefined};
+type ViewHeaderProps = {
+  title: string | undefined;
+  bookmark: any;
+  bookmarked: boolean;
+};
 
 const ViewHeader = (props: ViewHeaderProps) => {
   const navigation = useNavigation();
@@ -20,8 +24,13 @@ const ViewHeader = (props: ViewHeaderProps) => {
       <Text style={styles.title}>{props.title}</Text>
       <TouchableOpacity
         activeOpacity={0.8}
+        onPress={props.bookmark}
         hitSlop={{top: 30, bottom: 30, left: 30, right: 30}}>
-        <Icon name="heart-outline" size={24} color="#DA5746" />
+        <Icon
+          name={props.bookmarked ? 'heart' : 'heart-outline'}
+          size={24}
+          color="#DA5746"
+        />
       </TouchableOpacity>
     </View>
   );

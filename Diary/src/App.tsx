@@ -47,6 +47,12 @@ export default class App extends React.Component {
           newArticles[index].title = title;
           newArticles[index].content = content;
           this.setState({articles: newArticles});
+        }}
+        toggle={(id: number) => {
+          const newArticles = [...this.state.articles];
+          const index = newArticles.findIndex(a => a.id === id);
+          newArticles[index].bookmarked = !newArticles[index].bookmarked;
+          this.setState({articles: newArticles});
         }}>
         <Navigator />
       </ContextProvider>

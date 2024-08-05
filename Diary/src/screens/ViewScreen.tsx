@@ -12,7 +12,7 @@ import {withContext} from '../libs/Context';
 import ViewHeader from '../components/ViewHeader';
 import {IArticle} from '../interfaces/Article.interface';
 
-type ViewScreenProps = {articles: IArticle[]; route: any};
+type ViewScreenProps = {articles: IArticle[]; route: any; toggle: any};
 
 const ViewScreen = (props: ViewScreenProps) => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -20,7 +20,13 @@ const ViewScreen = (props: ViewScreenProps) => {
   const article = props.articles.find(a => a.id === id);
   return (
     <SafeAreaView style={styles.container}>
-      <ViewHeader title={article?.title} />
+      <ViewHeader
+        title={article?.title}
+        bookmarked={article?.bookmarked || false}
+        bookmark={() => {
+          props.toggle(id);
+        }}
+      />
       <ScrollView>
         <TouchableOpacity
           activeOpacity={0.8}
