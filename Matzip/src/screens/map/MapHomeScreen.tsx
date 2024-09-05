@@ -1,5 +1,6 @@
 import React from 'react';
-import {SafeAreaView, Text, Button} from 'react-native';
+import {StyleSheet} from 'react-native';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import useAuth from '@/hooks/queries/useAuth';
 
 export default function MapHomeScreen() {
@@ -10,9 +11,16 @@ export default function MapHomeScreen() {
   };
 
   return (
-    <SafeAreaView>
-      <Text>맵 스크린</Text>
-      <Button title="로그아웃" onPress={handleLogout} />
-    </SafeAreaView>
+    <MapView
+      style={styles.container}
+      provider={PROVIDER_GOOGLE}
+      showsUserLocation
+      followsUserLocation
+      showsMyLocationButton={true}
+    />
   );
 }
+
+const styles = StyleSheet.create({
+  container: {flex: 1},
+});
