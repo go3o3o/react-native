@@ -1,6 +1,6 @@
-import {Category, Profile} from '../types/domain';
-import {getEncryptStorage} from '../utils';
 import axiosInstance from './axios';
+import {getEncryptStorage} from '@/utils';
+import type {Category, Profile} from '@/types/domain';
 
 type RequestUser = {
   email: string;
@@ -8,10 +8,7 @@ type RequestUser = {
 };
 
 const postSignup = async ({email, password}: RequestUser): Promise<void> => {
-  const {data} = await axiosInstance.post('/auth/signup', {
-    email,
-    password,
-  });
+  const {data} = await axiosInstance.post('/auth/signup', {email, password});
 
   return data;
 };
@@ -25,10 +22,7 @@ const postLogin = async ({
   email,
   password,
 }: RequestUser): Promise<ResponseToken> => {
-  const {data} = await axiosInstance.post('/auth/signin', {
-    email,
-    password,
-  });
+  const {data} = await axiosInstance.post('/auth/signin', {email, password});
 
   return data;
 };
