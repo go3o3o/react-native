@@ -9,7 +9,7 @@ export type MapStackParamList<navigationName extends string> = {
 
 const Stack = createStackNavigator<MapStackParamList<string>>();
 
-export function MapStackNavigator() {
+function MapStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -36,3 +36,5 @@ export function MapStackNavigator() {
     </Stack.Navigator>
   );
 }
+
+export default MapStackNavigator;
