@@ -1,7 +1,9 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {LatLng} from 'react-native-maps';
 import MapHomeScreen from '@/screens/map/MapHomeScreen';
 import {mapNavigations} from '@/constants';
+import AddPostScreen from '@/screens/map/AddPostScreen';
 
 export type MapStackParamList<navigationName extends string> = {
   [k in navigationName]: undefined;
@@ -31,6 +33,13 @@ function MapStackNavigator() {
         options={{
           headerTitle: ' ',
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={mapNavigations.ADD_POST}
+        component={AddPostScreen}
+        options={{
+          headerTitle: '장소 추가',
         }}
       />
     </Stack.Navigator>
