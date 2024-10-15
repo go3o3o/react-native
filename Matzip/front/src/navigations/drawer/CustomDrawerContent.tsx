@@ -20,6 +20,10 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
   const {getProfileQuery} = useAuth();
   const {email, nickname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
 
+  const handleLogout = () => {
+    logoutMutation.mutate(null);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView
@@ -46,6 +50,14 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
+      <Pressable
+        onPress={handleLogout}
+        style={{
+          alignItems: 'flex-end',
+          padding: 10,
+        }}>
+        <Text>로그아웃</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }
