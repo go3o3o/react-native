@@ -6,7 +6,7 @@ import {authNavigations} from '@/constants';
 import CustomButton from '@/components/CustomButton';
 
 type Props = StackScreenProps<
-  AuthStackParamList<string>,
+  AuthStackParamList,
   typeof authNavigations.AUTH_HOME
 >;
 

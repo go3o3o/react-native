@@ -5,11 +5,12 @@ import MapHomeScreen from '@/screens/map/MapHomeScreen';
 import {mapNavigations} from '@/constants';
 import AddPostScreen from '@/screens/map/AddPostScreen';
 
-export type MapStackParamList<navigationName extends string> = {
-  [k in navigationName]: undefined;
+export type MapStackParamList = {
+  [mapNavigations.MAP_HOME]: undefined;
+  [mapNavigations.ADD_POST]: {location: LatLng};
 };
 
-const Stack = createStackNavigator<MapStackParamList<string>>();
+const Stack = createStackNavigator<MapStackParamList>();
 
 function MapStackNavigator() {
   return (

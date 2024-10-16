@@ -5,11 +5,13 @@ import AuthHomeScreen from '../../screens/auth/AuthHomeScreen';
 import LoginScreen from '../../screens/auth/LoginScreen';
 import SignupScreen from '../../screens/auth/SignupScreen';
 
-export type AuthStackParamList<navigationName extends string> = {
-  [k in navigationName]: undefined;
+export type AuthStackParamList = {
+  [authNavigations.AUTH_HOME]: undefined;
+  [authNavigations.LOGIN]: undefined;
+  [authNavigations.SIGNUP]: undefined;
 };
 
-const Stack = createStackNavigator<AuthStackParamList<string>>();
+const Stack = createStackNavigator<AuthStackParamList>();
 
 export default function AuthStackNavigator() {
   return (
