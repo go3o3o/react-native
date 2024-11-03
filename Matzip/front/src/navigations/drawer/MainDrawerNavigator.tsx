@@ -1,25 +1,24 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {RouteProp} from '@react-navigation/native';
+import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
 import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
 import {colors, mainNavigations} from '@/constants';
-import MapStackNavigator from '../stack/MapStackNavigator';
+import MapStackNavigator, {MapStackParamList} from '../stack/MapStackNavigator';
 import CustomDrawerContent from './CustomDrawerContent';
 
-export type MainDrawerParamList<navigationName extends string> = {
-  [k in navigationName]: undefined;
+export type MainDrawerParamList = {
+  [mainNavigations.HOME]: NavigatorScreenParams<MapStackParamList>;
+  [mainNavigations.FEED]: undefined;
+  [mainNavigations.CALENDAR]: undefined;
 };
 
-const Drawer = createDrawerNavigator<MainDrawerParamList<string>>();
+const Drawer = createDrawerNavigator<MainDrawerParamList>();
 
-function DrawerIcons(
-  route: RouteProp<MainDrawerParamList<string>>,
-  focused: boolean,
-) {
+function DrawerIcons(route: RouteProp<MainDrawerParamList>, focused: boolean) {
   let iconName = '';
 
   switch (route.name) {
