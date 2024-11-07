@@ -1,16 +1,23 @@
-export const mainNavigations = {
+const mainNavigations = {
   HOME: 'Home',
   FEED: 'Feed',
   CALENDAR: 'Calendar',
 } as const;
 
-export const authNavigations = {
+const authNavigations = {
   AUTH_HOME: 'AuthHome',
   LOGIN: 'Login',
   SIGNUP: 'Signup',
 } as const;
 
-export const mapNavigations = {
+const mapNavigations = {
   MAP_HOME: 'MapHome',
   ADD_POST: 'AddPost',
 } as const;
+
+const feedNavigations = {
+  FEED_HOME: 'FeedHome',
+  FEED_DETAIL: 'FeedDetail',
+} as const;
+
+export {mainNavigations, authNavigations, mapNavigations, feedNavigations};
