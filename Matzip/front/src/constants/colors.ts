@@ -6,6 +6,7 @@ const colors = {
   RED_300: '#FFB4B4',
   RED_500: '#FF5F5F',
   BLUE_400: '#B4E0FF',
+  BLUE_500: '#0D8AFF',
   GREEN_400: '#CCE6BA',
   YELLOW_400: '#FFE594',
   PURPLE_400: '#C4C4E7',
@@ -16,6 +17,14 @@ const colors = {
   GRAY_500: '#8E8E8E',
   GRAY_700: '#575757',
   BLACK: '#000',
+};
+
+const colorHex = {
+  RED: colors.PINK_400,
+  BLUE: colors.BLUE_400,
+  GREEN: colors.GREEN_400,
+  YELLOW: colors.YELLOW_400,
+  PURPLE: colors.PURPLE_400,
 } as const;
 
-export {colors};
+export {colors, colorHex};
