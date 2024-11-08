@@ -3,7 +3,7 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
 import {authNavigations} from '@/constants';
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/common/CustomButton';
 
 type Props = StackScreenProps<
   AuthStackParamList,

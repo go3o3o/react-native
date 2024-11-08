@@ -18,7 +18,7 @@ import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import useUserLocation from '@/hooks/useUserLocation';
 import usePermission from '@/hooks/usePermission';
-import CustomMarker from '@/components/CustomMarker';
+import CustomMarker from '@/components/common/CustomMarker';
 import mapStyle from '@/styles/mapStyle';
 import {alerts, colors, mapNavigations} from '@/constants';
 import useGetMarkers from '@/hooks/queries/useGetMarkers';
