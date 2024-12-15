@@ -1,27 +1,37 @@
-import {colors} from '@/constants';
 import React from 'react';
-import {FlatList, Text} from 'react-native';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, View, Pressable, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import DayOfWeeks from './DayOfWeeks';
-import {MonthYear, isSameAsCurrentDate} from '@/utils';
-import DateBox from './DateBox';
 
-interface CalendarProps {
+import {MonthYear, isSameAsCurrentDate} from '@/utils';
+import {colors} from '@/constants';
+import DayOfWeeks from './DayOfWeeks';
+import DateBox from './DateBox';
+import YearSelector from './YearSelector';
+import useModal from '@/hooks/useModal';
+
+interface CalendarProps<T> {
   monthYear: MonthYear;
   selectedDate: number;
+  schedules: Record<number, T[]>;
   onPressDate: (date: number) => void;
   onChangeMonth: (increment: number) => void;
 }
 
-function Calendar({
+function Calendar<T>({
   monthYear,
   selectedDate,
+  schedules,
   onPressDate,
   onChangeMonth,
-}: CalendarProps) {
+}: CalendarProps<T>) {
   const {month, year, lastDate, firstDOW} = monthYear;
+  const yearSelector = useModal();
+
+  const handleChangeYear = (selectYear: number) => {
+    onChangeMonth((selectYear - year) * 12);
+    yearSelector.hide();
+  };
 
   return (
     <>
@@ -31,7 +41,9 @@ function Calendar({
           style={styles.monthButtonContainer}>
           <Ionicons name="arrow-back" size={25} color={colors.BLACK} />
         </Pressable>
-        <Pressable style={styles.monthYearContainer}>
+        <Pressable
+          style={styles.monthYearContainer}
+          onPress={yearSelector.show}>
           <Text style={styles.titleText}>
             {year}년 {month}월
           </Text>
@@ -59,6 +71,7 @@ function Calendar({
             <DateBox
               date={item.date}
               isToday={isSameAsCurrentDate(year, month, item.date)}
+              hasSchedule={Boolean(schedules[item.date])}
               selectedDate={selectedDate}
               onPressDate={onPressDate}
             />
@@ -67,6 +80,13 @@ function Calendar({
           numColumns={7}
         />
       </View>
+
+      <YearSelector
+        isVisible={yearSelector.isVisible}
+        currentYear={year}
+        onChangeYear={handleChangeYear}
+        hide={yearSelector.hide}
+      />
     </>
   );
 }
