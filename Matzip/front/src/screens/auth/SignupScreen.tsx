@@ -1,14 +1,16 @@
 import React, {useRef} from 'react';
 import {SafeAreaView, StyleSheet, TextInput, View} from 'react-native';
+import Toast from 'react-native-toast-message';
+
 import InputField from '@/components/common/InputField';
-import useForm from '@/hooks/useForm';
 import CustomButton from '@/components/common/CustomButton';
-import {validateSignup} from '@/utils/validate';
+import useForm from '@/hooks/useForm';
 import useAuth from '@/hooks/queries/useAuth';
+import {validateSignup} from '@/utils';
+import {errorMessages} from '@/constants';
 
-export default function SignupScreen() {
+function SignupScreen() {
   const {signupMutation, loginMutation} = useAuth();
-
   const passwordRef = useRef<TextInput | null>(null);
   const passwordConfirmRef = useRef<TextInput | null>(null);
   const signup = useForm({
@@ -20,7 +22,16 @@ export default function SignupScreen() {
     const {email, password} = signup.values;
     signupMutation.mutate(
       {email, password},
-      {onSuccess: () => loginMutation.mutate({email, password})},
+      {
+        onSuccess: () => loginMutation.mutate({email, password}),
+        onError: error =>
+          Toast.show({
+            type: 'error',
+            text1: error.response?.data.message || errorMessages.UNEXPECT_ERROR,
+            position: 'bottom',
+            visibilityTime: 2000,
+          }),
+      },
     );
   };
 
@@ -76,3 +87,5 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 });
+
+export default SignupScreen;
