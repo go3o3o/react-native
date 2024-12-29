@@ -1,19 +1,22 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {authNavigations} from '../../constants';
-import AuthHomeScreen from '../../screens/auth/AuthHomeScreen';
-import LoginScreen from '../../screens/auth/LoginScreen';
-import SignupScreen from '../../screens/auth/SignupScreen';
+
+import AuthHomeScreen from '@/screens/auth/AuthHomeScreen';
+import LoginScreen from '@/screens/auth/LoginScreen';
+import SignupScreen from '@/screens/auth/SignupScreen';
+import {authNavigations} from '@/constants';
+import KakaoLoginScreen from '@/screens/auth/KakaoLoginScreen';
 
 export type AuthStackParamList = {
   [authNavigations.AUTH_HOME]: undefined;
   [authNavigations.LOGIN]: undefined;
   [authNavigations.SIGNUP]: undefined;
+  [authNavigations.KAKAO]: undefined;
 };
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
-export default function AuthStackNavigator() {
+function AuthStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -21,29 +24,45 @@ export default function AuthStackNavigator() {
           backgroundColor: 'white',
         },
         headerStyle: {
+          shadowColor: 'gray',
           backgroundColor: 'white',
-          shadowColor: 'gray', // 헤더 아래 보더 색상지정
         },
         headerTitleStyle: {
-          fontSize: 15, // 헤더 폰트사이즈
+          fontSize: 15,
         },
-        headerTintColor: 'black', // 헤더 타이틀 색상 변경 옵션
+        headerTintColor: 'black',
       }}>
       <Stack.Screen
         name={authNavigations.AUTH_HOME}
         component={AuthHomeScreen}
-        options={{headerTitle: '', headerShown: false}} // AuthHome 페이지는 헤더 제거
+        options={{
+          headerTitle: ' ',
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name={authNavigations.LOGIN}
         component={LoginScreen}
-        options={{headerTitle: '로그인'}}
+        options={{
+          headerTitle: '로그인',
+        }}
       />
       <Stack.Screen
         name={authNavigations.SIGNUP}
         component={SignupScreen}
-        options={{headerTitle: '회원가입'}}
+        options={{
+          headerTitle: '회원가입',
+        }}
+      />
+      <Stack.Screen
+        name={authNavigations.KAKAO}
+        component={KakaoLoginScreen}
+        options={{
+          headerTitle: '카카오 로그인',
+        }}
       />
     </Stack.Navigator>
   );
 }
+
+export default AuthStackNavigator;
