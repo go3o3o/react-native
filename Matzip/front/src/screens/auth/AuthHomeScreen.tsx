@@ -1,31 +1,54 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
-import {authNavigations} from '@/constants';
-import CustomButton from '@/components/common/CustomButton';
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-type Props = StackScreenProps<
+import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
+import CustomButton from '@/components/common/CustomButton';
+import {authNavigations, colors} from '@/constants';
+
+type AuthHomeScreenProps = StackScreenProps<
   AuthStackParamList,
   typeof authNavigations.AUTH_HOME
 >;
 
-export default function AuthHomeScreen({navigation}: Props) {
+function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Text style={styles.logoText}>맛집 앱</Text>
+      <View style={styles.imageContainer}>
+        <Image
+          resizeMode="contain"
+          style={styles.image}
+          source={require('@/assets/matzip.png')}
+        />
       </View>
       <View style={styles.buttonContainer}>
         <CustomButton
-          label="로그인 하기"
-          onPress={() => navigation.navigate(authNavigations.LOGIN)}
+          label="카카오 로그인하기"
+          variant="filled"
+          size="large"
+          onPress={() => navigation.navigate(authNavigations.KAKAO)}
+          style={styles.kakaoButtonContainer}
+          textStyle={styles.kakaoButtonText}
+          icon={
+            <Ionicons name={'chatbubble-sharp'} color={'#181600'} size={16} />
+          }
         />
         <CustomButton
-          label="회원가입 하기"
-          variant="outlined"
-          onPress={() => navigation.navigate(authNavigations.SIGNUP)}
+          label="이메일 로그인하기"
+          onPress={() => navigation.navigate(authNavigations.LOGIN)}
         />
+        <Pressable onPress={() => navigation.navigate(authNavigations.SIGNUP)}>
+          <Text style={styles.emailText}>이메일로 가입하기</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -33,25 +56,36 @@ export default function AuthHomeScreen({navigation}: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    marginHorizontal: 30,
+    marginVertical: 30,
   },
-  logoContainer: {
+  imageContainer: {
+    flex: 1.5,
+    width: Dimensions.get('screen').width / 2,
+  },
+  image: {
     width: '100%',
-    marginBottom: 48,
-  },
-  logoText: {
-    fontSize: 32,
-    textAlign: 'center',
-    fontWeight: '700',
+    height: '100%',
   },
   buttonContainer: {
-    width: '100%',
-    paddingHorizontal: 16,
-    display: 'flex',
-    gap: 12,
+    flex: 1,
+    alignItems: 'center',
+    gap: 10,
+  },
+  kakaoButtonContainer: {
+    backgroundColor: '#fee503',
+  },
+  kakaoButtonText: {
+    color: '#181600',
+  },
+  emailText: {
+    textDecorationLine: 'underline',
+    fontWeight: '500',
+    padding: 10,
+    color: colors.BLACK,
   },
 });
+
+export default AuthHomeScreen;
