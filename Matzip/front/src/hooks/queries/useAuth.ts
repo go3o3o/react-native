@@ -4,6 +4,7 @@ import {MutationFunction, useMutation, useQuery} from '@tanstack/react-query';
 import {
   ResponseProfile,
   ResponseToken,
+  appleLogin,
   getAccessToken,
   getProfile,
   kakaoLogin,
@@ -36,7 +37,7 @@ function useLogin<T>(
   mutationOptions?: UseMutationCustomOptions,
 ) {
   return useMutation({
-    mutationFn: postLogin,
+    mutationFn: loginAPI,
     onSuccess: ({accessToken, refreshToken}) => {
       setHeader('Authorization', `Bearer ${accessToken}`);
       setEncryptStorage(storageKeys.REFRESH_TOKEN, refreshToken);
@@ -61,8 +62,12 @@ function useKakaoLogin(mutationOptions?: UseMutationCustomOptions) {
   return useLogin(kakaoLogin, mutationOptions);
 }
 
+function useAppleLogin(mutationOptions?: UseMutationCustomOptions) {
+  return useLogin(appleLogin, mutationOptions);
+}
+
 function useGetRefreshToken() {
-  const {data, isSuccess, isError} = useQuery({
+  const {data, error, isSuccess, isError} = useQuery({
     queryKey: [queryKeys.AUTH, queryKeys.GET_ACCESS_TOKEN],
     queryFn: getAccessToken,
     staleTime: numbers.ACCESS_TOKEN_REFRESH_TIME,
@@ -120,6 +125,7 @@ function useAuth() {
   const isLogin = getProfileQuery.isSuccess;
   const loginMutation = useEmailLogin();
   const kakaoLoginMutation = useKakaoLogin();
+  const appleLoginMutation = useAppleLogin();
   const logoutMutation = useLogout();
 
   return {
@@ -129,6 +135,7 @@ function useAuth() {
     isLogin,
     logoutMutation,
     kakaoLoginMutation,
+    appleLoginMutation,
   };
 }
 
