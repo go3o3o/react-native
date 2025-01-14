@@ -1,8 +1,8 @@
 import {AxiosError} from 'axios';
 import {
+  QueryKey,
   UseMutationOptions,
   UseQueryOptions,
-  QueryKey,
 } from '@tanstack/react-query';
 
 type ResponseError = AxiosError<{
@@ -21,4 +21,11 @@ type UseQueryCustomOptions<TQueryFnData = unknown, TData = TQueryFnData> = Omit<
   'queryKey'
 >;
 
-export type {ResponseError, UseMutationCustomOptions, UseQueryCustomOptions};
+type ThemeMode = 'light' | 'dark';
+
+export type {
+  ResponseError,
+  UseMutationCustomOptions,
+  UseQueryCustomOptions,
+  ThemeMode,
+};
