@@ -1,7 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  Image,
-  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -15,11 +13,11 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
-import usePermission from '@/hooks/usePermission';
-import useImagePicker from '@/hooks/useImagePicker';
 import useGetAddress from '@/hooks/useGetAddress';
 import useModal from '@/hooks/useModal';
 import useForm from '@/hooks/useForm';
+import usePermission from '@/hooks/usePermission';
+import useImagePicker from '@/hooks/useImagePicker';
 import InputField from '@/components/common/InputField';
 import CustomButton from '@/components/common/CustomButton';
 import AddPostHeaderRight from '@/components/post/AddPostHeaderRight';
@@ -31,8 +29,9 @@ import PreviewImageList from '@/components/common/PreviewImageList';
 import {getDateWithSeparator, validateAddPost} from '@/utils';
 import {colors} from '@/constants';
 import {MarkerColor} from '@/types';
-import useDetailStore from '@/store/useDetailPostStore';
+import useDetailPostStore from '@/store/useDetailPostStore';
 import useMutateUpdatePost from '@/hooks/queries/useMutateUpdatePost';
+import useThemeStore from '@/store/useThemeStore';
 
 interface PostFormProps {
   isEdit?: boolean;
@@ -40,11 +39,12 @@ interface PostFormProps {
 }
 
 function PostForm({location, isEdit = false}: PostFormProps) {
+  const {theme} = useThemeStore();
   const navigation = useNavigation<StackNavigationProp<FeedStackParamList>>();
   const descriptionRef = useRef<TextInput | null>(null);
   const createPost = useMutateCreatePost();
   const updatePost = useMutateUpdatePost();
-  const {detailPost} = useDetailStore();
+  const {detailPost} = useDetailPostStore();
   const isEditMode = isEdit && detailPost;
   const address = useGetAddress(location);
   const addPost = useForm({
@@ -98,10 +98,7 @@ function PostForm({location, isEdit = false}: PostFormProps) {
 
     if (isEditMode) {
       updatePost.mutate(
-        {
-          id: detailPost.id,
-          body,
-        },
+        {id: detailPost.id, body},
         {
           onSuccess: () => navigation.goBack(),
         },
@@ -131,7 +128,11 @@ function PostForm({location, isEdit = false}: PostFormProps) {
             value={address}
             disabled={true}
             icon={
-              <Octicons name="location" size={16} color={colors.GRAY_500} />
+              <Octicons
+                name="location"
+                size={16}
+                color={colors[theme].GRAY_500}
+              />
             }
           />
           <CustomButton
