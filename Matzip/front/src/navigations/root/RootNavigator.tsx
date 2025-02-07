@@ -1,10 +1,17 @@
 import React from 'react';
+import RetryErrorBoundary from '@/components/common/RetryErrorBoundary';
 import MainDrawerNavigator from '../drawer/MainDrawerNavigator';
-import useAuth from '@/hooks/queries/useAuth';
 import AuthStackNavigator from '../stack/AuthStackNavigator';
+import useAuth from '@/hooks/queries/useAuth';
 
-export default function RootNavigator() {
+function RootNavigator() {
   const {isLogin} = useAuth();
 
-  return <>{isLogin ? <MainDrawerNavigator /> : <AuthStackNavigator />}</>;
+  return (
+    <RetryErrorBoundary>
+      {isLogin ? <MainDrawerNavigator /> : <AuthStackNavigator />}
+    </RetryErrorBoundary>
+  );
 }
+
+export default RootNavigator;
