@@ -9,12 +9,18 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^14.0.4",
+    "@reduxjs/toolkit": "^2.5.1",
+    "add": "^2.0.6",
     "expo": "~52.0.32",
     "expo-asset": "^11.0.3",
+    "expo-font": "^13.0.3",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "^0.77.0",
-    "react-native-web": "^0.19.13"
+    "react-native-web": "^0.19.13",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
