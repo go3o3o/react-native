@@ -4,7 +4,7 @@ import { StatusBar, KeyboardAvoidingView } from "react-native";
 import { useDispatch } from "react-redux";
 import Button from "../../components/Auth/Button";
 import DismissKeyboard from "../../components/DismissKeyboard";
-import { isEmail } from "../../util";
+import utils from "../../utils";
 import { userLogin } from "../../redux/userSlice";
 
 const Container = styled.View`
@@ -27,7 +27,7 @@ export default ({ route: { params } }) => {
       alert("All fields are required.");
       return false;
     }
-    if (!isEmail(email)) {
+    if (!utils.isEmail(email)) {
       alert("Email is invalid");
       return false;
     }
