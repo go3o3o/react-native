@@ -1,10 +1,11 @@
 import ExploreContainer from "./ExploreContainer";
 import { connect } from "react-redux";
-import { getRooms } from "../../../redux/roomSlice";
+import { getRooms, increasePage } from "../../../redux/roomSlice";
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRooms: () => dispatch(getRooms()),
+    getRooms: (page) => dispatch(getRooms(page)),
+    increasePage: () => dispatch(increasePage()),
   };
 }
 
