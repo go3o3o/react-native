@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import Explore from "../screens/Main/Explore/ExplorePresenter";
-import Saved from "../screens/Main/Saved";
+import Saved from "../screens/Main/Saved/SavedPresenter";
 import MapScreen from "../screens/Main/Map";
 import Profile from "../screens/Main/Profile";
 import colors from "../colors";
