@@ -1,15 +1,14 @@
 import React from "react";
 import Pt from "prop-types";
 import styled from "styled-components/native";
-import { Dimensions, View } from "react-native";
+import { Dimensions, View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Swiper from "react-native-web-swiper";
 import utils from "../utils";
 import { useDispatch } from "react-redux";
 import { toggleFav } from "../redux/userSlice";
 import colors from "../colors";
-
-const { width, height } = Dimensions.get("screen");
+import RoomPhotos from "./RoomPhotos";
 
 const Container = styled.View`
   width: 100%;
@@ -102,45 +101,27 @@ const RoomCard = ({ id, isFav, isSuperHost, photos, name, price }) => {
         <FavButton>
           <Ionicons
             size={28}
-            color={isFav ? colors.red : colors.black}
+            color={isFav ? colors.red : "black"}
             name={getIconName(isFav)}
           />
         </FavButton>
       </TOpacity>
-      <PhotosContainer>
-        {photos.length === 0 ? (
-          <SlideImage
-            resizeMode="repeat"
-            source={require("../assets/roomDefault.jpeg")}
-          />
-        ) : (
-          <Swiper
-            controlsProps={{
-              PrevComponent: () => null,
-              NextComponent: () => null,
-              dotActiveStyle: {
-                backgroundColor: "white",
-              },
-            }}
-          >
-            {photos.map((photo) => (
-              <View key={photo.id}>
-                <SlideImage source={{ uri: photo.file }} />
-              </View>
-            ))}
-          </Swiper>
-        )}
-      </PhotosContainer>
-      {isSuperHost ? (
-        <Superhost>
-          <SuperhostText>Superhost</SuperhostText>
-        </Superhost>
-      ) : null}
-      <Name>{name}</Name>
-      <PriceContainer>
-        <PriceNumber>${price}</PriceNumber>
-        <PriceText> / night</PriceText>
-      </PriceContainer>
+      <RoomPhotos photos={photos} />
+      <TouchableOpacity
+        style={{ alignItems: "flex-start" }}
+        onPress={() => navigation.navigate("RoomDetail", { ...roomObj })}
+      >
+        {isSuperHost ? (
+          <Superhost>
+            <SuperhostText>Superhost</SuperhostText>
+          </Superhost>
+        ) : null}
+        <Name>{name}</Name>
+        <PriceContainer>
+          <PriceNumber>${price}</PriceNumber>
+          <PriceText> / night</PriceText>
+        </PriceContainer>
+      </TouchableOpacity>
     </Container>
   );
 };
@@ -156,6 +137,7 @@ RoomCard.propTypes = {
   ),
   name: Pt.string.isRequired,
   price: Pt.number.isRequired,
+  roomObj: Pt.object.isRequired,
 };
 
 export default RoomCard;

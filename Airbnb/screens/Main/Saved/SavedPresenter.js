@@ -16,7 +16,7 @@ const Title = styled.Text`
 
 export default () => (
   <Container>
-    <Title>Favorites</Title>
+    <Title>Favourites ({rooms.length})</Title>
     <SV
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 50 }}
@@ -31,6 +31,7 @@ export default () => (
             id={room.id}
             isFav={room.is_fav}
             isSuperHost={room.user.superhost}
+            roomObj={room}
           />
         ))
       ) : (
