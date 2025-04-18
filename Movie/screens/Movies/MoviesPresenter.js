@@ -24,8 +24,7 @@ export default ({ loading, nowPlaying, popular, upcoming }) => (
   <ScrollView
     style={{ backgroundColor: "black" }}
     contentContainerStyle={{
-      backgroundColor: "black",
-      flex: 1,
+      flex: loading ? 1 : "auto",
       justifyContent: loading ? "center" : "flex-start",
     }}
   >
