@@ -17,7 +17,9 @@ export default ({
       backgroundImage,
       poster,
       overview,
-      votes,
+      votes: {
+        results: [],
+      },
     },
   });
   const getData = async () => {
